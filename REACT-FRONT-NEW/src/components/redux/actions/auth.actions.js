@@ -32,6 +32,7 @@ export const loginUser = (formData, navigate) => async (dispatch) => {
         dispatch({ type: "login_user_ok", payload: result.data });
         localStorage.setItem("user",result.data.getUser._Id)
         localStorage.setItem("token",result.data.token)
+        localStorage.setItem("email",result.data.getUser.email)
         //Se guarda el token que te da el back, y los datos del usuario loguedao
         navigate("/main")
     } catch (error) {
@@ -40,7 +41,33 @@ export const loginUser = (formData, navigate) => async (dispatch) => {
     }
 
 };
-export const logoutUser = () => {
+export const actualUser = (formData) => async (dispatch) => {
+    dispatch({ type: "actual_user_ok"});
+    //comprobacion si llegan los datos del formulario
+    console.log(formData)
+    try {
+        const result = await API.post("user/checksession", formData);
+        console.log(result)
+        console.log(result.data.email)
+        localStorage.getItem("email")
 
+    } catch (error) {
+        dispatch({ type: "actual_user_ko", payload: error.message });
+        console.log(error)
+    }
+
+};
+export const logoutUser = (formData, navigate) => async (dispatch) => {
+    dispatch({ type: "log_out"});
+    //comprobacion si llegan los datos del formulario
+    console.log(formData)
+    try {
+        localStorage.removeItem("token")
+        navigate("/")
+
+    } catch (error) {
+        dispatch({ type: "log_out_ko", payload: error.message });
+        console.log(error)
+    }
 
 };

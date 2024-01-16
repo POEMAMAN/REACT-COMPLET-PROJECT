@@ -1,5 +1,7 @@
 import axios from "axios";
-const token = null;
+
+const token = localStorage.getItem("token")
+console.log(token)
 //vamos a definir los datos del HEADER de la peticion a la API
 const APIHeader = {
     //tipo de aplicacion
@@ -10,7 +12,7 @@ const APIHeader = {
     //la autorizacion, el beare es el token
     'Authorization': {
         toString(){
-            return `Bearer ${token}`;
+            return `Bearer ${localStorage.getItem("token")}`;
         }
     },
 };
@@ -26,3 +28,5 @@ export const API = axios.create({
 
 
 });
+
+

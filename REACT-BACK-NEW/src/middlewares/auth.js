@@ -5,6 +5,7 @@ const isAuth = async (req, res, next) => {
     //COMPRUEBO AUTH Y SI ES VALIDO LE DEJO PASAR A LO SIGUIENTE(next)
     try {
         const authorization = req.headers.authorization;
+        console.log(authorization)
         if(!authorization){
             return res.status(401).json({message: 'Unauthorized'})
         }
